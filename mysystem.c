@@ -17,12 +17,12 @@ int mysystem(char *command) {
   if(command==NULL) status=1;
   if((pid=fork())<0){
     status=-1;
-  }
-  if(pid==0){
-    execl("/bin/sh", "sh", "-c", command, NULL);
-    exit(127);
+  } else if(pid!=0){
+    wait(&status);
   } else {
     wait(&status);
+    execl("/bin/sh", "sh", "-c", command, NULL);
+    exit(127);
   }
   return status;
 }
