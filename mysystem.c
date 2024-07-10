@@ -20,7 +20,6 @@ int mysystem(char *command) {
   } else if(pid!=0){
     wait(&status);
   } else {
-    wait(&status);
     execl("/bin/sh", "sh", "-c", command, NULL);
     exit(127);
   }
